@@ -19,7 +19,7 @@ This fragment introduces the threshold concept that later connects with the broa
 ## Media
 
 - YouTube:
-https://youtube.com/@TenIO-t1yy
+https://youtube.com/@TenIO-t1y
 
 - TikTok:
 https://tiktok.com/@ten.io.metaverse
