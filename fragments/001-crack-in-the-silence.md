@@ -18,13 +18,16 @@ This fragment introduces the threshold concept that later connects with the broa
 
 ## Media
 
+## Media
+
 - YouTube:
 https://youtube.com/@TenIO-t1y
 
 - TikTok:
 https://tiktok.com/@ten.io.metaverse
 
----
+- Spotify:
+https://open.spotify.com/intl-es/artist/2U0v8YfjkZ1iGGvyidiQKu
 
 ## Infrastructure
 
