@@ -187,3 +187,10 @@ Audiovisual fragments archived through Ethereum, IPFS and ENS.
 ## Lore
 
 - /lore/network-state.md
+---
+
+## ERC-8060-backed TEN.IO collections (research draft)
+
+TEN.IO's planned NFT collections live in this **application repository**, not inside the ERC-8060 standard. The draft product contract, fixed-fee economics and pending release parameters are documented at [docs/erc8060-collections.md](docs/erc8060-collections.md).
+
+ERC-8060 itself remains a minimal, independent two-function interface (`valueOf` and `burn`) with a generic ETH-backed reference in [erc8060-native-eth-value](https://github.com/ten-io-meta/erc8060-native-eth-value). The TEN.IO code is not deployed or audited for real funds.
