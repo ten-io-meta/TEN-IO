@@ -1,67 +1,84 @@
-# TEN.IO / ERC-8060 — GitHub portfolio audit and retention map
+# TEN.IO / ERC-8060 — Engineering inventory and release gates
 
-**Review date:** 2026-11-19. **Scope:** 12 repositories visible through the connected ten-io-meta GitHub account, priority source/ABI review, open draft PRs and historic onchain evidence. NOT a completed line-by-line audit of every dependency or every deployment. No changes to main or to deployed code; no funds transferred.
+**Snapshot: 2026-11-19.** Scope: 12 repositories under `ten-io-meta`, verified GitHub PR heads and the pinned-block evidence recorded below. This is a *coordination index*, not a production audit, current live-balance oracle, security certification or migration authorization.
 
-## Target organization
+**Operating rule:** do not merge, deploy, transfer ETH, execute `burn`, change frontend production routing, deprecate an NFT address holding live assets, or archive a repository with unresolved dependencies as part of documentation cleanup. Draft branches and deployed contracts are separate realities.
 
-| Repository | Classification | Proposed action | Why |
-|---|---|---|---|
-| ten-io-meta/ERCs | STANDARDS DOCUMENTATION | KEEP / edit normative drafts only here | Contains draft erc-8060 and erc-8098; a standards fork, not production financial contracts |
-| ten-io-meta/EIPs | LEGACY STANDARDS FORK | KEEP AS REFERENCE, review whether to archive | Generic fork and historic proposal work; current application-layer ERC changes belong under ERCs |
-| ten-io-meta/erc8060-native-eth-value | CORE STRICT REFERENCE RESEARCH | KEEP, CONSOLIDATE PRs #1/#5 | main still contains older Ownable reference; PR #1 fixes strict ABI, PR #5 adds generic zero-admin reference, PR #4 mixed product fees into the standard repo and is now CLOSED as superseded; its experimental evidence and branch are preserved |
-| ten-io-meta/erc8060-reservable | OPTIONAL CONDITIONAL RESEARCH | KEEP, REVIEW STACKED PRs #10-16 | Six-function reserve accounting, experimental economic application witnesses and forged-provenance counterexamples; main is NOT the final v6 candidate |
-| ten-io-meta/open-erc-composition-laboratory | INDEPENDENT VERIFICATION LAB | KEEP, INTEGRATE VERIFIED EVIDENCE | Original scientific OECL baseline and onchain witnesses; manifest currently DISABLES local Reservable source entries, CI only covers a subset |
-| ten-io-meta/agent-reservable-composition | EXPERIMENTAL VALIDATION SUITE | KEEP AS A LAB OR MOVE AFTER TEST AUDIT | ERC-8004/other ERC agent workflow testing; includes MOCKS with fictional token value, not deployable backed collateral |
-| ten-io-meta/TEN-IO | PRODUCT / COLLECTIONS / CULTURAL ARCHIVE | KEEP, RESTRUCTURE README | Product-specific Umbral, metadata, audiovisual archive and draft fee collection implementation belong here, not in ERC-8060 standard repo |
-| ten-io-meta/tenio-frontend-nuevo | LIVE/LEGACY PRODUCT FRONTEND | KEEP BUT QUARANTINE UNVERIFIED ONCHAIN ADAPTERS | React app contains legacy Ownable surplus panel and ABI mismatches; its configured deployments are now verified distinct legacy V2-like Mainnet/Sepolia contracts holding seven live NFTs each; see read-only PR #2 |
-| ten-io-meta/TENIO-Origin | HISTORICAL GENESIS DOCUMENTATION | KEEP / mark historical | Source provenance and Mainnet chain history; do not present as strict modern ERC-8060 deployment |
-| ten-io-meta/TENIO-Fragment | HISTORICAL VULNERABLE PRODUCT CONTRACT | KEEP AS EVIDENCE / ARCHIVE ONLY AFTER REVIEW | Published burn can destroy a token without ETH if underfunded; full owner withdraw; executable instructions reproduced by audit PR #3; old contracts are immutable |
-| ten-io-meta/DefiLlama-Adapters | OBSOLETE USER EXPERIMENT | ARCHIVE CANDIDATE, not part of protocol | User explicitly identifies as an abandoned initial trial |
-| ten-io-meta/unreplied-mvp | UNRELATED EXPERIMENT | ARCHIVE CANDIDATE, not part of protocol | User explicitly identifies as irrelevant |
+## 1. One owner per responsibility
 
-## Real code risks and inconsistencies found
+| Repository | Type | Action | Security boundary |
+| --- | --- | --- | --- |
+| [ERCs](https://github.com/ten-io-meta/ERCs) | Standards fork | **KEEP** | ERC-8060 and ERC-8098 draft specifications; no collection economics or deployment wallets |
+| [EIPs](https://github.com/ten-io-meta/EIPs) | Older standards fork | **KEEP AS HISTORY** | Check historical refs before considering archive |
+| [erc8060-native-eth-value](https://github.com/ten-io-meta/erc8060-native-eth-value) | Strict ERC-8060 *example reference* | **KEEP / use PR #6** | One no-admin, no-fee reference; not production approved |
+| [erc8060-reservable](https://github.com/ten-io-meta/erc8060-reservable) | Optional conditional extension / research | **KEEP SEPARATE** | Accounting reserve locks cannot be advertised as unconditional strict redemption or creditor enforcement |
+| [open-erc-composition-laboratory](https://github.com/ten-io-meta/open-erc-composition-laboratory) | OECL capability and evidence laboratory | **KEEP / improve evidence** | Provenance, actual execution and rights verified independently; UNKNOWN on insufficient evidence |
+| [agent-reservable-composition](https://github.com/ten-io-meta/agent-reservable-composition) | Agent/composition simulation | **KEEP LAB-ONLY** | Unbacked numerical mock collateral is not ETH backing |
+| [TEN-IO](https://github.com/ten-io-meta/TEN-IO) | Product and audiovisual archive | **KEEP** | Collection names, supply limits, fees, recipients, fixed metadata and art belong only to product |
+| [tenio-frontend-nuevo](https://github.com/ten-io-meta/tenio-frontend-nuevo) | Live legacy frontend and Umbral V2 evidence | **KEEP; DO NOT REPOINT** | Preserve separate legacy ABI/withdraw panel and contract addresses from future ERC-8060 UI |
+| [TENIO-Origin](https://github.com/ten-io-meta/TENIO-Origin) | Historical provenance | **KEEP AS EVIDENCE** | Historical contract does not inherit later ERC-8060 guarantees |
+| [TENIO-Fragment](https://github.com/ten-io-meta/TENIO-Fragment) | Historical deployed risky contract | **KEEP AS SECURITY EVIDENCE** | Published burn can succeed with no refund if underfunded; owner withdrawal is not reserve-preserving |
+| [DefiLlama-Adapters](https://github.com/ten-io-meta/DefiLlama-Adapters) | Abandoned experiment | **ARCHIVE CANDIDATE ONLY** | Do not delete; verify no CI/workflow/source dependency first |
+| [unreplied-mvp](https://github.com/ten-io-meta/unreplied-mvp) | Unrelated experiment | **ARCHIVE CANDIDATE ONLY** | Do not delete; verify no active dependency first |
 
-1. **Two competing strict references:** erc8060-native-eth-value main / PR #1 retains an Ownable surplus role, while PR #5 adds a separate no-admin reference. PR #4 added fee accounting despite the decision that TEN.IO fees are product-level. This draft PR has now been CLOSED as superseded (branch/tests intact). Before any merge select ONE canonical no-admin security reference and keep historic one marked legacy.
-2. **Legacy Fragment financial flaw:** TENIOFragment.sol burns and then pays ETH only if balance >= 0.10; owner withdraw can remove all reserves. TENIO Fragment source-to-chain PR #3 proves matching executable bytes, not full metadata. Historic deployments are NOT strict ERC-8060.
-3. **Separate Umbral V2 in frontend:** contracts/UmbralFragmentV2_flat.sol contains a different legacy asset at 0.012 mint, 0.010 burn, 1000 cap. This V2 includes Ownable, owner withdrawal of computed surplus, and owner setBaseURI; it does NOT implement valueOf or strict ERC8060 ID. contracts/UmbralFragmentV2.sol is empty. The two frontend .env contract addresses are distinct from known TENIO-Fragment addresses. Frontend audit PR #2 has now verified both via two public RPCs: Mainnet 0x841c6a8e1858fd7daf25824e4d305ff06bd7a525 (7 live NFTs, 0.086 ETH held against 0.070 ETH reported reserve); Sepolia 0x47C049d0441dae4D06fd7E8d512e4E91B7E92e77 (7 live NFTs, 0.076 test ETH held against 0.070 reported test ETH reserve). Both share runtime hash 0x4ea55e352e81d0a52669ec97cc6d7ab871315cf54c0060ba615b30e932d0f74f and return false for strict ERC-8060 ID. These are observed snapshots, NOT yet compiler-source identity proof.
-4. **Frontend ABI mismatch and permissive read fallbacks:** App.jsx imports ABI.json and shows an owner withdrawal panel; the connection module imports UmbralFragment.json with extra nextId/mintedEver. getOwnedFragments uses tokenOfOwnerByIndex, unsupported by the new plain ERC721 reference. Some missing getter errors become displayed zeros: do not present failed reads as solvent/no liability.
-5. **Reservable cannot be sold as a right to repayment by itself:** reserveAllowance is permission to create locks, not locked or collected ETH; releaseValue allows the controller to release its own lock. Only authenticated, separately funded and enforceable app settlement can justify a creditor claim.
-6. **OECL provenance failure under forged trust roots:** PR #16 demonstrates exact-runtime NFT and factory bytecode with attacker-chosen constructor storage. ERC165, codehash, self-declared isSolvent and lockedBy can all be misleading without deploy and state history authentication. PASS in a negative attack demonstration does not mean production-safe.
-7. **Agent-composition mock is not an ETH vault:** contracts/ERC8060ReservableMock.sol lets a token owner call mintValue with arbitrary amount **without any payable ETH deposit**, and mock transfer permission clearing is deliberately unimplemented. CompositionAccountingDemo.sol has purely numerical reserves without real funds. MUST remain labeled local simulations; never onboard them as solvency evidence in OECL.
-8. **ERC-8098 is a separate ERC20 behavioral standard:** no new ERC20 ABI; token supply must never increase post-deployment, and burns cannot be reversed. ERC-721 cap examples are similar in spirit but are NOT ERC-8098 conformance. No dedicated 8098 verified production reference was located.
+## 2. Current PR and test status (this snapshot)
 
-## Next work order
+| Scope | PR | Verified finding | Decision |
+| --- | --- | --- | --- |
+| Generic strict ERC-8060 | [native-eth-value #6](https://github.com/ten-io-meta/erc8060-native-eth-value/pull/6) | Exact head `b88323b32edf9def8e35caae7330994651e3f6ec`, [CI 44576693742](https://github.com/ten-io-meta/erc8060-native-eth-value/actions/runs/44576693742) SUCCESS, **20/20 tests**, 15 compiled Solidity files | **DRAFT; one canonical `ERC8060Reference.sol`; do not deploy without an independent audit** |
+| Prior ERC-8060 branches | [#1](https://github.com/ten-io-meta/erc8060-native-eth-value/pull/1), [#5](https://github.com/ten-io-meta/erc8060-native-eth-value/pull/5) | **CLOSED WITHOUT MERGE**, superseded by #6; historical test evidence still available | No competing canonical references; do not report their 52/63 tests as current #6 results |
+| TEN.IO collection application | [TEN-IO #1](https://github.com/ten-io-meta/TEN-IO/pull/1) | 19 tests reported passing on its independent app branch; immutable fee-route example and cap are **product choices** | **DRAFT**; no production recipient, metadata CID or cap approved |
+| Portfolio documentation | [TEN-IO #2](https://github.com/ten-io-meta/TEN-IO/pull/2) | Repository inventory and this coordination index | **DRAFT; documentation only** |
+| Frontend contract/ABI audit | [frontend #2](https://github.com/ten-io-meta/tenio-frontend-nuevo/pull/2) | Legacy Mainnet/Sepolia addresses and non-strict ERC-8060 support verified | **DRAFT**; do not silently switch application ABI/addresses |
+| Umbral V2 executable and provenance | [frontend #3](https://github.com/ten-io-meta/tenio-frontend-nuevo/pull/3) | Executable runtime match; two-RPC holder/reserve verification; Sepolia direct CREATE and ABI constructor evidence | **DRAFT**; missing full original metadata and Mainnet creation/constructor |
+| Conditional research | [Reservable #10–#16](https://github.com/ten-io-meta/erc8060-reservable/pulls) | Differing experimental evidence stages, including forged provenance counterexamples | **RESEARCH**; do not batch-merge as a validated financial protocol |
+| Reservable documentation accuracy | [Reservable #17](https://github.com/ten-io-meta/erc8060-reservable/pull/17) | Six-function ABI and explicit limits of accounting-only locks | **DRAFT** |
+| Historical evidence | [TENIO-Fragment #3](https://github.com/ten-io-meta/TENIO-Fragment/pull/3), [#4](https://github.com/ten-io-meta/TENIO-Fragment/pull/4), [TENIO-Origin #1](https://github.com/ten-io-meta/TENIO-Origin/pull/1) | Immutable historical deployments and bounded source-matching claims | **PRESERVE; do not repoint holders** |
+| Mock warning | [agent-reservable-composition #1](https://github.com/ten-io-meta/agent-reservable-composition/pull/1) | Unfunded simulated reserves clearly labeled | **DRAFT** |
 
-1. **Safety gate first:** onchain identify the two addresses actually used by frontend; compare their ABI and deployed runtime with the flattened Umbral V2 source; block automatic migration and do not send any ETH.
-2. **Consolidate strict ERC-8060:** reconcile PR #1 vs #5, use no-admin fee-free reference as target and move/copy every valuable test from the creator-fee PR #4 to TEN.IO if distinct. Keep the interface ONLY valueOf and burn.
-3. **Keep history visible:** label TENIO-Origin and TENIO-Fragment historical with explicit warnings, correct any misleading reversible/fully backed claims. Do not overwrite source used for deployed-runtime attestations.
-4. **Promote only authenticated financial tests:** integrate v6 Reservable and agent-composition research into OECL as version-pinned evidence, with explicit negative outcomes and UNKNOWN judgments; do not import mocks as backed assets.
-5. **Set product contracts separately:** TEN-IO PR #1 defines 0.010 ETH backing + 0.002 fee = 0.012 ETH Umbral; larger collection 0.10 + 0.02 = 0.12 ETH. Keep wallet/CID/max supply as deployment-time values subject to review.
-6. **Archive obsolete repos as GitHub repository metadata** after confirming no live deployment/CI dependency; do not delete historical evidence. No repository archive/delete connector operation is available in this review, so these remain proposals, not completed archival actions.
+Read the linked PRs for their exact-head status; this table is frozen to the snapshot date. GitHub `main` branches are not automatically changed by draft PRs.
 
-## What must NOT be inferred
+## 3. Umbral V2 — live holder preservation gate
 
-- Passing 63, 19, 69 or 213 tests does not certify all contracts or combinations. Some tests intentionally demonstrate unsafe behavior.
-- A source repo does not update any contract already deployed to Mainnet or Sepolia.
-- Every branch has not yet been independently fuzzed/formally verified; this audit is triage and source-boundary review, not production authorization.
-- A fee-wallet being historically the owner of one legacy contract is not an appropriate universal default for any third-party ERC-8060 deployment.
+The deployed contracts are independent from the new generic reference, are **not** strict ERC-8060, and have **7 live NFTs each** in the cited snapshots.
 
-## Key evidence links
+| Chain | Contract | Pinned block from verified holder audit | Live token IDs | ETH balance / computed required reserve |
+| --- | --- | ---: | --- | --- |
+| Ethereum Mainnet | `0x841c6a8e1858fd7daf25824e4d305ff06bd7a525` | **26,450,613** | **2, 3, 7, 8, 9, 10, 11** | **0.086 ETH / 0.070 ETH** |
+| Sepolia | `0x47C049d0441dae4D06fd7E8d512e4E91B7E92e77` | **12,169,851** | **1, 6, 7, 9, 10, 14, 26** | **0.076 test ETH / 0.070 test ETH** |
 
-- [Strict ERC-8060 PR #5](https://github.com/ten-io-meta/erc8060-native-eth-value/pull/5)
-- [Strict ABI alignment PR #1](https://github.com/ten-io-meta/erc8060-native-eth-value/pull/1)
-- [Creator fee alternative PR #4](https://github.com/ten-io-meta/erc8060-native-eth-value/pull/4)
-- [TEN.IO product collections PR #1](https://github.com/ten-io-meta/TEN-IO/pull/1)
-- [Historical Fragment executable audit PR #3](https://github.com/ten-io-meta/TENIO-Fragment/pull/3)
-- [OECL forged provenance counterexamples PR #16](https://github.com/ten-io-meta/erc8060-reservable/pull/16)
-- [Frontend adapter/chain read-only audit PR #2](https://github.com/ten-io-meta/tenio-frontend-nuevo/pull/2)
+Evidence: [two-RPC holder and reserve CI 44578459622](https://github.com/ten-io-meta/tenio-frontend-nuevo/actions/runs/44578459622) **SUCCESS**, plus [source/constructor CI 44578459379](https://github.com/ten-io-meta/tenio-frontend-nuevo/actions/runs/44578459379) **SUCCESS**. These are *historical snapshots*, not live balances or a forward-looking solvency warranty.
 
-## Disposition record / work carried out in this review
+- Actual published source is `contracts/UmbralFragmentV2_flat.sol` in the frontend repository; `contracts/UmbralFragmentV2.sol` is empty. The flattening has an unusual encoding; the audit script decodes it before compiling.
+- `solc 0.8.30`, optimizer 200, `viaIR=false`, EVM Cancun reproduce **7,107 executable bytes**. The full 7,160-byte runtime has **different 53-byte CBOR metadata**; exact original compiler-input/source-tree identity remains **unproven**.
+- The V2 economic code fixes `MINT_PRICE=0.012 ether`, `BURN_REFUND=0.010 ether`, historical max issuance of 1,000 and owner-only *calculated surplus* withdrawal. The legacy burn requires token ownership and reverts if ETH payout fails. An optional admin `setBaseURI` affects future mints, not stored existing token URIs.
+- **Sepolia direct CREATE**: [tx `0x3b732000dd75e323d33ded51c137f0deb8a718ae1344e2521b086f14c6d04e61`](https://sepolia.etherscan.io/tx/0x3b732000dd75e323d33ded51c137f0deb8a718ae1344e2521b086f14c6d04e61), block 9,067,661; receipt and ABI constructor `(string _baseURI,address initialOwner)` were reconstructed. Initial owner `0x75DA787FDA32092079dbe113c5c9DBC22CBBC455`.
+- **Mainnet creation transaction and original full Solidity metadata remain UNKNOWN**, and Sepolia creation is *not* a proxy for Mainnet creation.
+- All seven observed Mainnet token URIs have the **same hash**; validate metadata expectations before making any uniqueness/visual-content claim.
+- **Never** automatically burn, migrate, repoint, overwrite, or replace holders' assets. A future migration, if offered, must be opt-in, explicitly tested, clearly disclosed and independent of the strict reference's deployment.
 
-- CLOSED (not merged) ERC-8060 creator-fee alternative [PR #4](https://github.com/ten-io-meta/erc8060-native-eth-value/pull/4) as superseded by generic [PR #5](https://github.com/ten-io-meta/erc8060-native-eth-value/pull/5) and separate TEN.IO product [PR #1](https://github.com/ten-io-meta/TEN-IO/pull/1). Alternative branch and read-only wallet evidence remain recoverable.
-- CLOSED (not merged) [TENIO Fragment PR #2](https://github.com/ten-io-meta/TENIO-Fragment/pull/2) as superseded by fuller [historical safety PR #3](https://github.com/ten-io-meta/TENIO-Fragment/pull/3). No branches deleted.
-- Created standalone draft [frontend onchain/ABI audit PR #2](https://github.com/ten-io-meta/tenio-frontend-nuevo/pull/2), independently verified 7 live NFTs on each frontend deployment, and documented two same-codehash but non-strict ERC-8060 legacy assets.
-- Created [agent composition mock safety PR #1](https://github.com/ten-io-meta/agent-reservable-composition/pull/1), explicitly marking fake ledger value as UNBACKED and not financial collateral.
-- Created [Reservable README accuracy PR #17](https://github.com/ten-io-meta/erc8060-reservable/pull/17), correcting interface count and overconfident claim of protocol closure.
-- Created [TENIO Origin historical claim correction PR #1](https://github.com/ten-io-meta/TENIO-Origin/pull/1), preserving the original genesis history without unproven global first/strict compliance claims.
-- DefiLlama-Adapters and unreplied-mvp **have not been archived/deleted**; the connected GitHub actions do not expose a repository archive operation. Use GitHub Settings > General > Danger Zone > Archive this repository (after confirming no dependency) instead of irreversible delete.
+## 4. ERC-8060 strict reference acceptance gate
+
+The single candidate is [`contracts/ERC8060Reference.sol` at PR #6 exact head](https://github.com/ten-io-meta/erc8060-native-eth-value/blob/b88323b32edf9def8e35caae7330994651e3f6ec/contracts/ERC8060Reference.sol).
+
+- Strict interface: `valueOf(uint256)` and `burn(uint256)` (`ERC-165 0x88495fe7`). Optional `0xcadf338f` is legacy *value-only* detection, **not** proof of owner redemption or custody.
+- No `Ownable`, admin, issuer withdrawal, price, mint fee, reserved fee wallet, pause or upgrade. Any positive deposit creates a distinct claim for exactly its deposited ETH; token IDs are not reused; this example has **no global supply cap**.
+- Current test gate: **20/20 local Hardhat tests** including reentrancy, owner-only burn, failed payout rollback, rejected safeMint callback, forced-surplus behavior and shadow-ledger accounting. This is not formal proof.
+- **Before production**: independently review bytecode and deployment source provenance, stateful invariant/fuzz tests, production threat model, external audit and receiving-contract/redeemability UX. Do not merge the draft merely because CI is green.
+
+TEN.IO's **0.010 ETH backing + 0.002 ETH commercial fee** and **0.10 ETH backing + 0.02 ETH commercial fee** are proposals in TEN.IO's product PR #1, *never normative ERC-8060 requirements*.
+
+## 5. Dependency and cleanup order
+
+1. **Protect history:** Keep Umbral V2/Fragment/Origin contracts and verified evidence visible; complete Mainnet creation/constructor provenance where archival data is accessible. Resolve/clearly badge frontend ABI and the absence of strict `valueOf` before publishing any change to a live interface.
+2. **Keep one ERC reference:** Use **PR #6 only** as the candidate for ERC-8060; earlier PRs #1/#5 are closed research. No owner role, no fee routing and no TEN.IO application logic in the generic contract.
+3. **Keep products independent:** Review TEN.IO application PR #1 separately, with immutable deployment-time fee destination, finite cap and metadata policy only after sign-off. Do not treat this as a replacement for Umbral V2 holders.
+4. **Finish proof gates before OECL adoption:** Reconcile Reservable PR #10–#16 in their research order; never accept an unfunded mock or self-attested factory/codehash as real collateral. In OECL mark insufficient authenticated rights as **UNKNOWN** rather than certifying it.
+5. **Archive only if dependency-free:** DefiLlama-Adapters and unreplied-mvp are *candidates*. Review active consumers, releases, external references and GitHub Actions before archiving. Prefer **Archive**, not **Delete**. Keep older ERC/EIP proposal records accessible.
+
+## 6. Limits and change policy
+
+- This inventory does not establish future token holder counts, ETH reserve balances, deployed executable source identity beyond the bounded checks above, or full auditor assurance.
+- The legacy TENIO-Fragment `withdraw()` can remove its full balance and its `burn()` can succeed without paying when underfunded. **Do not confuse it with Umbral V2**, which has different executable logic and reserve handling.
+- Reservable accounting, ERC-8098 monotone **ERC-20** supply, OECL assessment receipts, ERC-8060 redemption and TEN.IO collection economics are different layers; no implicit security or ERC compliance is inherited from one to another.
+- **No automated merges, deployments, funds movement, repository deletes or frontend production reconfiguration from this documentation work.** Keep research PRs as drafts pending review.
