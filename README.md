@@ -9,11 +9,11 @@ TEN.IO is an audiovisual project combining music, IPFS metadata, ENS and optiona
 | Layer | Repository | Purpose |
 | --- | --- | --- |
 | ERC-8060 draft | [ERCs fork](https://github.com/ten-io-meta/ERCs) | Public ERC proposal: valueOf and burn, ETH-redemption semantics |
-| Strict ERC-8060 reference | [erc8060-native-eth-value](https://github.com/ten-io-meta/erc8060-native-eth-value) | Generic Solidity reference, proofs and adversarial tests |
+| Strict ERC-8060 reference | [erc8060-native-eth-value](https://github.com/ten-io-meta/erc8060-native-eth-value) | **PR #6 only**: one no-admin, no-fee research implementation; 20/20 local tests |
 | Reservable research | [erc8060-reservable](https://github.com/ten-io-meta/erc8060-reservable) | Optional conditional reserve accounting; not automatic creditor rights |
 | Composition evidence | [OECL](https://github.com/ten-io-meta/open-erc-composition-laboratory) | Independently bounded evidence for cross-protocol claims |
 | TEN.IO product | [this repository](https://github.com/ten-io-meta/TEN-IO) | Collection fees, supply caps, videos, metadata and brand settings |
-| Live/historical interface | [tenio-frontend-nuevo](https://github.com/ten-io-meta/tenio-frontend-nuevo) | Legacy web app; must not be conflated with the new strict implementation |
+| Live/historical interface | [tenio-frontend-nuevo](https://github.com/ten-io-meta/tenio-frontend-nuevo) | Preserve live Umbral V2 NFT rights; [source and owner evidence PR #3](https://github.com/ten-io-meta/tenio-frontend-nuevo/pull/3) |
 
 ## Collections: design, not current deployment
 
@@ -25,7 +25,7 @@ Critical deployment inputs (fee beneficiary, minted cap, permanent metadata CID)
 
 - [TENIO-Origin](https://github.com/ten-io-meta/TENIO-Origin): genesis-era Mainnet record; see historical deployment `0x8Cfc6b16B01604c83bef1e315d6693d2e7dA43Ad`.
 - [TENIO-Fragment](https://github.com/ten-io-meta/TENIO-Fragment): Mainnet `0x7c88fabe05fd373d56a728f9896f87ede10db789`; historical burn/withdraw design does not meet strict ERC-8060 economic guarantees. [Security audit PR #3](https://github.com/ten-io-meta/TENIO-Fragment/pull/3).
-- [Umbral V2 in frontend source](https://github.com/ten-io-meta/tenio-frontend-nuevo/blob/main/contracts/UmbralFragmentV2_flat.sol): legacy 1,000 NFT cap and 0.012 ETH mint/0.010 ETH refund, with owner controlled surplus; read-only provenance investigation in [frontend PR #2](https://github.com/ten-io-meta/tenio-frontend-nuevo/pull/2).
+- [Umbral V2 in frontend source](https://github.com/ten-io-meta/tenio-frontend-nuevo/blob/main/contracts/UmbralFragmentV2_flat.sol): legacy 1,000 NFT cap and 0.012 ETH mint/0.010 ETH refund, with owner controlled surplus; deployed on Mainnet at `0x841c6a8e1858fd7daf25824e4d305ff06bd7a525` and Sepolia at `0x47C049d0441dae4D06fd7E8d512e4E91B7E92e77`. [Frontend inventory PR #2](https://github.com/ten-io-meta/tenio-frontend-nuevo/pull/2) and [provenance/owner PR #3](https://github.com/ten-io-meta/tenio-frontend-nuevo/pull/3) record seven live NFTs on each chain at pinned blocks, and reproduced executable runtime, but full original compiler metadata remains unverified.
 
 These old contracts are already deployed or historical. Editing GitHub cannot retroactively change them. Do not present them as audited strict ERC-8060 deployments.
 
@@ -41,6 +41,6 @@ These old contracts are already deployed or historical. Editing GitHub cannot re
 
 ## Engineering audit and cleanup
 
-See the [GitHub repository portfolio triage](docs/engineering/github-portfolio-triage-2026-11.md) for all 12 repositories, risks, dependency retention and suggested archiving. DefiLlama-Adapters and unreplied-mvp are considered legacy/unrelated experiments, not active protocol components.
+**Current coordination index:** [GitHub portfolio, holder-protection rules and release gates](docs/engineering/github-portfolio-triage-2026-11.md). It records all 12 repositories, exact PR status, [single strict ERC-8060 PR #6](https://github.com/ten-io-meta/erc8060-native-eth-value/pull/6), live Umbral V2 provenance, independent Reservable/OECL roles and safe archival candidates. Keep this as the source of truth for engineering status rather than duplicating progress statements across product and standard repositories. DefiLlama-Adapters and unreplied-mvp are considered legacy/unrelated experiments, not active protocol components.
 
 **No farming. No promises. Just fragments of truth.**
