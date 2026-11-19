@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "_notice": "Planning data only. Never deploy from this file until feeRecipient, maxMinted and metadataBaseURI are verified and approved. This is TEN.IO product configuration; it is NOT part of ERC-8060.",
+  "collections": {
+    "umbral": {
+      "name": "TEN.IO Umbral",
+      "symbol": "UMBR",
+      "backingETH": "0.010",
+      "feeETH": "0.002",
+      "mintPriceETH": "0.012",
+      "maxMinted": null,
+      "feeRecipient": null,
+      "metadataBaseURI": null,
+      "deployment": "NOT_CONFIGURED"
+    },
+    "higher": {
+      "name": "TEN.IO Collection (name pending)",
+      "symbol": null,
+      "backingETH": "0.10",
+      "feeETH": "0.02",
+      "mintPriceETH": "0.12",
+      "maxMinted": null,
+      "feeRecipient": null,
+      "metadataBaseURI": null,
+      "deployment": "NOT_CONFIGURED"
+    },
+    "future_1_eth": {
+      "name": null,
+      "symbol": null,
+      "backingETH": "1",
+      "feeETH": null,
+      "mintPriceETH": null,
+      "maxMinted": null,
+      "feeRecipient": null,
+      "metadataBaseURI": null,
+      "deployment": "NOT_CONFIGURED"
+    },
+    "future_10_eth": {
+      "name": null,
+      "symbol": null,
+      "backingETH": "10",
+      "feeETH": null,
+      "mintPriceETH": null,
+      "maxMinted": null,
+      "feeRecipient": null,
+      "metadataBaseURI": null,
+      "deployment": "NOT_CONFIGURED"
+    }
+  }
+}
