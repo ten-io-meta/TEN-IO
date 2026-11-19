@@ -11,7 +11,8 @@ interface ITENIOERC8060Value {
 }
 
 /// @notice TEN.IO product collection implementing strict draft ERC-8060.
-/// @dev TEN.IO application code (NOT ERC-8060 normative reference).\n///      Requires independent audit before real deposits.
+/// @dev TEN.IO application code (NOT ERC-8060 normative reference).
+///      Requires independent audit before real deposits.
 ///      The fee beneficiary receives *only* fees, never custody or reserve powers.
 ///      Parameters are fixed at deployment; burned token IDs are never reminted.
 contract TENIOImmutableCollection is ERC721, ReentrancyGuard, ITENIOERC8060Value {
