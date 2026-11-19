@@ -1,0 +1,25 @@
+name: TEN.IO ERC-8060 application tests
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tenio-erc8060:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - name: Reproducible dependency install
+        run: npm ci
+      - name: Compile TEN.IO product contracts
+        run: npm run compile
+      - name: Test fee, collateral and mint cap logic
+        run: npm test
