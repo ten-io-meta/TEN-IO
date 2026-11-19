@@ -41,6 +41,6 @@ These old contracts are already deployed or historical. Editing GitHub cannot re
 
 ## Engineering audit and cleanup
 
-**Current coordination index:** [GitHub portfolio, holder-protection rules and release gates](docs/engineering/github-portfolio-triage-2026-11.md). It records all 12 repositories, exact PR status, [single strict ERC-8060 PR #6](https://github.com/ten-io-meta/erc8060-native-eth-value/pull/6), live Umbral V2 provenance, independent Reservable/OECL roles and safe archival candidates. Keep this as the source of truth for engineering status rather than duplicating progress statements across product and standard repositories. DefiLlama-Adapters and unreplied-mvp are considered legacy/unrelated experiments, not active protocol components.
+**Current coordination index:** [GitHub portfolio, holder-protection rules and release gates (PR #2)](https://github.com/ten-io-meta/TEN-IO/pull/2). It records all 12 repositories, exact PR status, [single strict ERC-8060 PR #6](https://github.com/ten-io-meta/erc8060-native-eth-value/pull/6), live Umbral V2 provenance, independent Reservable/OECL roles and safe archival candidates. Keep this as the source of truth for engineering status rather than duplicating progress statements across product and standard repositories. DefiLlama-Adapters and unreplied-mvp are considered legacy/unrelated experiments, not active protocol components.
 
 **No farming. No promises. Just fragments of truth.**
